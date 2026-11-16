@@ -22,6 +22,40 @@
             border-radius: 12px;
         }
 
+        /* Navigation Bar */
+        .navbar {
+            background: #142d59;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+            padding: 9px 12px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            background: #1e40af;
+        }
+
+        .navbar a.active {
+            background: #1e40af;
+        }
+
         h1 {
             color: #1e3a8a;
         }
@@ -105,6 +139,21 @@
 <body>
 
 <div class="container">
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h2>🛡️ BankShield</h2>
+
+        <div>
+            <a href="{{ route('customers.index') }}" class="active">
+                Customers
+            </a>
+
+            <a href="{{ route('accounts.index') }}">
+                Accounts
+            </a>
+        </div>
+    </div>
 
     <h1>Customer Management</h1>
 
