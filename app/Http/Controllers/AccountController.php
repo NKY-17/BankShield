@@ -97,4 +97,39 @@ class AccountController extends Controller
             ->route('accounts.index')
             ->with('success', 'Account closed successfully.');
     }
+    // Feature 11: Check a transaction for suspicious activity
+    public function checkFraud(Request $request)
+    {
+        $validated = $request->validate([
+            'account_id' => 'required|exists:accounts,id',
+            'amount' => 'required|numeric|min:0.01',
+        ]);
+
+        $account = Account::findOrFail($validated['account_id']);
+
+        if ($account->status !== 'active') {
+            return back()->with('error', 'This account is not active.');
+        }
+
+        $amount = $validated['amount'];
+
+        $reasons = [];
+
+        if ($amount >= 50000) {
+            $reasons[] = 'Unusually large transaction';
+        }
+
+        if (now()->hour >= 0 && now()->hour < 5) {
+            $reasons[] = 'Transaction attempted during unusual hours';
+        }
+
+        if (count($reasons) > 0) {
+            return back()->with(
+                'error',
+                'Suspicious transaction detected: ' . implode(', ', $reasons)
+            );
+        }
+
+        return back()->with('success', 'Transaction passed the fraud checks.');
+    }
 }

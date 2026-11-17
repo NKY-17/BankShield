@@ -196,6 +196,10 @@
                 Accounts
             </a>
 
+            <a href="{{ route('fraud.dashboard') }}">
+                Fraud Protection
+            </a>
+
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="logout-button">
