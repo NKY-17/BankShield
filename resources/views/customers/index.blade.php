@@ -14,14 +14,13 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
             background: white;
             padding: 30px;
             border-radius: 12px;
         }
 
-        /* Navigation Bar */
         .navbar {
             background: #142d59;
             color: white;
@@ -47,10 +46,7 @@
             border-radius: 6px;
         }
 
-        .navbar a:hover {
-            background: #1e40af;
-        }
-
+        .navbar a:hover,
         .navbar a.active {
             background: #1e40af;
         }
@@ -151,6 +147,35 @@
             padding: 25px;
             color: #64748b;
         }
+
+        .account-status {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 3px 0;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .active-status {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .frozen-status {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .closed-status {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .no-account {
+            color: #64748b;
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -215,7 +240,8 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>City</th>
-                <th>Status</th>
+                <th>Customer Status</th>
+                <th>Account Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -237,7 +263,32 @@
 
                     <td>{{ $customer->city ?? 'N/A' }}</td>
 
-                    <td>{{ ucfirst($customer->status) }}</td>
+                    <td>
+                        {{ ucfirst($customer->status ?? 'active') }}
+                    </td>
+
+                    <td>
+                        @forelse ($customer->accounts as $account)
+
+                            @php
+                                $statusClass = match (strtolower($account->status)) {
+                                    'active' => 'active-status',
+                                    'frozen' => 'frozen-status',
+                                    'closed' => 'closed-status',
+                                    default => '',
+                                };
+                            @endphp
+
+                            <div>
+                                <span class="account-status {{ $statusClass }}">
+                                    {{ ucfirst($account->status) }}
+                                </span>
+                            </div>
+
+                        @empty
+                            <span class="no-account">No Account</span>
+                        @endforelse
+                    </td>
 
                     <td>
                         <a
@@ -251,7 +302,7 @@
 
             @empty
                 <tr>
-                    <td colspan="7" class="empty">
+                    <td colspan="8" class="empty">
                         No customers found.
                     </td>
                 </tr>

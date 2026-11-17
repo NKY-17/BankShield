@@ -10,12 +10,14 @@ class CustomerController extends Controller
     // Display all customers
     public function index()
     {
-        $customers = Customer::latest()->get();
+        $customers = Customer::with('accounts')
+            ->latest()
+            ->get();
 
         return view('customers.index', compact('customers'));
     }
 
-    // Show the customer registration form
+    // Show customer registration form
     public function create()
     {
         return view('customers.create');
@@ -45,7 +47,7 @@ class CustomerController extends Controller
             ->with('success', 'Customer registered successfully.');
     }
 
-    // Show the customer edit form
+    // Show customer edit form
     public function edit(Customer $customer)
     {
         return view('customers.edit', compact('customer'));
@@ -78,10 +80,14 @@ class CustomerController extends Controller
     {
         $search = $request->input('search');
 
-        $customers = Customer::where('first_name', 'like', "%{$search}%")
-            ->orWhere('last_name', 'like', "%{$search}%")
-            ->orWhere('customer_number', 'like', "%{$search}%")
-            ->orWhere('phone', 'like', "%{$search}%")
+        $customers = Customer::with('accounts')
+            ->where(function ($query) use ($search) {
+                $query->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('customer_number', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+            })
+            ->latest()
             ->get();
 
         return view('customers.index', compact('customers'));
