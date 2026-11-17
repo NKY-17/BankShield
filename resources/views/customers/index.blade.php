@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +53,25 @@
 
         .navbar a.active {
             background: #1e40af;
+        }
+
+        .navbar form {
+            display: inline;
+        }
+
+        .logout-button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            margin-left: 15px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-button:hover {
+            background: #b91c1c;
         }
 
         h1 {
@@ -152,6 +170,13 @@
             <a href="{{ route('accounts.index') }}">
                 Accounts
             </a>
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="logout-button">
+                    Logout
+                </button>
+            </form>
         </div>
     </div>
 
