@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\FraudProtectionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SavedReceiverController;
 use App\Http\Controllers\CustomerController;
@@ -61,4 +61,30 @@ Route::middleware('staff')->group(function () {
 
     Route::patch('/accounts/{account}/close', [AccountController::class, 'close'])
         ->name('accounts.close');
+});
+// Fraud Verification Routes
+Route::get('/fraud/verify/{token}', [FraudProtectionController::class, 'showVerification'])
+    ->name('fraud.verify.show');
+
+Route::post('/fraud/verify/{token}', [FraudProtectionController::class, 'verifyTransaction'])
+    ->name('fraud.verify.submit');
+
+// Fraud Protection and Case Board Routes
+Route::middleware('staff')->group(function () {
+
+    // Feature 11: Fraud Detection
+    Route::post('/fraud/check', [FraudProtectionController::class, 'checkTransaction'])
+        ->name('fraud.check');
+
+    // Feature 12: Fraud Case Board
+    Route::get('/fraud/cases', [FraudProtectionController::class, 'index'])
+        ->name('fraud.board');
+
+    Route::patch('/fraud/cases/{fraudCase}', [FraudProtectionController::class, 'updateCase'])
+        ->name('fraud.cases.update');
+    // Fraud Protection Dashboard
+    Route::get('/fraud/dashboard', [FraudProtectionController::class, 'dashboard'])
+        ->name('fraud.dashboard');
+    Route::post('/accounts/check-fraud', [AccountController::class, 'checkFraud'])
+        ->name('accounts.check-fraud');
 });
