@@ -1,185 +1,150 @@
-# 🏦 BankShield
-### Banking Management and Fraud Protection System
+# BankShield 🏦
+### An Explainable, Rule-Based Financial Fraud Detection and Banking Management Platform
 
-BankShield is a web-based banking management and fraud protection platform designed to support secure, efficient, and transparent banking operations. The system brings together essential banking services, account management, payment processing, customer support, financial insights, and explainable rule-based fraud detection in one centralized application.
+## Overview
 
-Developed as an academic group project at **BRAC University**, BankShield aims to demonstrate how modern web technologies and transparent detection mechanisms can contribute to more organized and secure banking operations.
+BankShield is a banking management and fraud protection platform designed to support secure banking operations and make suspicious financial activities easier to identify and investigate.
 
----
+The platform combines essential banking services with an explainable, rule-based fraud detection system. Instead of relying on machine learning or black-box algorithms, BankShield uses configurable rules and weighted risk scoring to identify unusual transaction patterns and provide understandable reasons behind each alert.
 
-## 📌 Project Overview
+The system aims to help banking staff monitor transactions, prioritize suspicious activities, manage customer accounts, and investigate potential fraud through a centralized platform.
 
-BankShield focuses on four major areas:
+## Project Objectives
 
-- **Payments:** Secure money transfers, bill payments, mobile recharge, and payment management.
-- **Accounts & Loans:** Customer accounts, loan applications, fixed deposits, and banking services.
-- **Fraud Protection:** Explainable rule-based transaction monitoring, suspicious activity detection, and investigation management.
-- **Support & Insights:** Customer support, spending analytics, transaction history, and administrative dashboards.
+- Provide a centralized platform for essential banking operations.
+- Support secure and convenient financial transactions.
+- Identify suspicious transaction patterns using configurable rules.
+- Explain why a transaction is flagged as suspicious.
+- Help staff prioritize and investigate potential fraud cases.
+- Provide useful insights through dashboards and transaction analytics.
+- Maintain records of important actions for transparency and accountability.
 
-The platform is designed to combine everyday banking functionalities with security-focused features and financial monitoring tools.
-
-## ✨ Key Features
-
-The project consists of 20 planned features distributed across four modules.
+## Core Modules
 
 ### 1. Payments
 
-- **Money Transfer with OTP:** Transfer money between BankShield accounts with additional email OTP verification for large transactions.
-- **QR Code Payment:** Enable customers to make payments by scanning merchant-generated QR codes.
-- **Bill Payment & Mobile Recharge:** Support utility bill payments and mobile recharges with transaction receipts.
-- **Saved Receivers:** Save, edit, and remove frequently used recipients.
-- **Scheduled Transfers:** Schedule future or recurring transfers and manage payment schedules.
+The Payments module focuses on convenient and secure financial transactions.
+
+Planned capabilities include:
+- Money transfers with OTP verification.
+- QR code payments.
+- Bill payments and mobile recharge.
+- Saved receivers for frequently used recipients.
+- Scheduled transfers.
 
 ### 2. Accounts & Loans
 
-- **Online Account Opening with Video KYC:** Allow customers to apply for accounts online and complete identity verification through a video verification process.
-- **Loan Application & Approval:** Submit loan applications, review supporting documents, approve or reject applications, and generate EMI repayment schedules.
-- **Branch & ATM Map:** Display nearby bank branches and ATMs with location information and directions.
-- **Customer & Account Management:** Allow authorized staff to create, view, search, and update customer profiles and manage savings and current accounts.
-- **Fixed Deposits:** Allow customers to open fixed deposits for different durations and view expected interest earnings.
+The Accounts & Loans module manages customer accounts and banking-related services.
+
+Planned capabilities include:
+- Online account opening with video KYC.
+- Loan applications and approval workflows.
+- EMI schedule generation.
+- Branch and ATM location services.
+- Customer and account management.
+- Fixed deposit services.
 
 ### 3. Fraud Protection
 
-- **Fraud Detection & "Was This You?":** Identify potentially suspicious transactions using unusual transaction amounts, frequency, login activity, and behavioral patterns.
-- **Fraud Case Board:** Provide a case management board for reviewing flagged transactions, recording investigation notes, and tracking investigation progress.
-- **Live Notifications:** Notify customers about transactions, new-device logins, and suspicious account activities.
-- **Fraud Limit Settings:** Allow administrators to configure transaction thresholds and behavioral limits.
-- **Card Management:** Allow customers to view virtual debit cards, freeze or unfreeze cards, and configure spending limits.
+The Fraud Protection module focuses on identifying, monitoring, and investigating potentially suspicious financial activities.
+
+Planned capabilities include:
+- Rule-based fraud detection and transaction verification.
+- Fraud case management through an investigation board.
+- Notifications for suspicious activities.
+- Configurable fraud limits.
+- Card management.
+
+The fraud detection approach uses:
+- Configurable transaction rules.
+- Weighted risk scoring.
+- Risk-level classification.
+- Explanations of triggered rules.
+- Prioritized suspicious transaction alerts.
+- Investigation records and case tracking.
+- What-If analysis to evaluate different rules and thresholds.
+
+A suspicious transaction is treated as an alert for investigation, not automatic proof of fraud.
 
 ### 4. Support & Insights
 
-- **Live Support Chat:** Connect customers with support agents through a real-time messaging system.
-- **Spending Analytics:** Display interactive financial charts showing spending patterns, received money, and monthly comparisons.
-- **Bank Admin Dashboard:** Present bank-wide statistics and visual summaries of transactions, accounts, loans, and reported fraud cases.
-- **Transaction History & Statements:** Search, filter, and download transaction statements.
-- **Transaction Disputes:** Allow customers to report disputed transactions and track investigation outcomes.
+The Support & Insights module aims to improve customer support and provide useful financial information.
 
----
+Planned capabilities include:
+- Live customer support chat.
+- Spending analytics.
+- Banking administration dashboard.
+- Transaction history and statements.
+- Transaction dispute management.
 
-## 🔍 Explainable Rule-Based Fraud Detection
+## Fraud Detection Approach
 
-A central focus of BankShield is its explainable, rule-based financial fraud detection and investigation approach.
+BankShield follows an explainable, rule-based approach rather than machine learning.
 
-Instead of relying on Machine Learning models or black-box predictions, the proposed detection engine uses configurable conditions, transaction-pattern analysis, and weighted risk scoring.
+The system evaluates transaction information using configurable conditions, such as:
 
-### How It Works
+- Unusually large transaction amounts.
+- High transaction frequency within a short period.
+- Repeated transactions.
+- Unusual transaction patterns based on available history.
 
-1. **Transaction Import:** Authorized users import transaction records using supported CSV files.
-2. **Rule Evaluation:** The system checks transactions against configurable suspicious-activity rules.
-3. **Risk Scoring:** Each triggered rule contributes predefined risk points to the transaction.
-4. **Alert Prioritization:** Transactions are categorized according to their calculated risk scores and organized into an investigation queue.
-5. **Explainable Results:** Each alert displays the triggered rules and explains how its risk score was calculated.
-6. **Case Investigation:** Authorized reviewers examine suspicious activity, record findings, and update investigation statuses.
-7. **Performance Evaluation:** Alternative detection configurations can be compared using labelled transaction data and appropriate evaluation metrics.
+Each triggered rule contributes to a weighted risk score. Based on the resulting score, transactions can be categorized into different risk levels and prioritized for further investigation.
 
-### Key Detection Capabilities
+This approach makes the detection process understandable because staff can see which rules were triggered and how they contributed to the risk score.
 
-- Unusually large transactions.
-- Multiple transactions within a short period.
-- Repeated transaction patterns.
-- Combinations of suspicious transaction conditions.
-- Configurable risk weights and alert thresholds.
-- Prioritized investigation queues.
-- Related-transaction analysis.
+## Investigation Workflow
 
-### What-If Analysis & Investigation Capacity Evaluation
+The proposed fraud investigation process includes:
 
-BankShield also aims to provide a configurable analysis module that allows administrators to compare detection rules, risk weights, and alert thresholds.
+1. Transaction data is imported and validated.
+2. Configured rules are applied to transactions.
+3. Triggered rules contribute to a weighted risk score.
+4. Transactions are categorized according to their risk levels.
+5. Suspicious transactions appear in a prioritized investigation queue.
+6. Staff review related transactions and investigate potential cases.
+7. Investigation notes, statuses, and outcomes are recorded.
+8. Historical records support auditing and further analysis.
 
-The module will help evaluate:
+## Technology Stack
 
-- Detection coverage.
-- False-alert rates.
-- Alert volume.
-- Risk-score distributions.
-- Investigation workload.
-- Detection performance under limited investigation capacity.
-
-The evaluation will use suitable labelled public datasets and clearly identified synthetic demonstration records.
-
-**Core Principle:** Every alert should have an understandable explanation, every investigation should be traceable, and every detection configuration should be measurable.
-
----
-
-## 🛠️ Technology Stack
-
-| Technology | Purpose |
+| Area | Technology |
 |---|---|
-| PHP | Backend programming |
-| Laravel | Web application framework |
-| MySQL | Database management |
-| Blade | Server-side templating |
-| HTML | Page structure |
-| CSS | Interface styling |
-| JavaScript | Frontend interactions and charts |
-| Git & GitHub | Version control and collaboration |
+| Backend | PHP, Laravel |
+| Frontend | HTML, CSS, JavaScript, Blade |
+| Database | MySQL |
+| Architecture | Model-View-Controller (MVC) |
+| Version Control | Git and GitHub |
+| Data Visualization | JavaScript charting library |
 
-**Architecture:** Model–View–Controller (MVC)
+## Data & Evaluation
 
-**Fraud Detection Approach:** Configurable rules, conditional logic, database queries, and weighted risk scoring.
+The project may use publicly available financial transaction datasets and clearly identified synthetic transaction data for demonstration and evaluation.
 
-The fraud detection component is designed without Machine Learning models, neural networks, generative AI, or external AI APIs.
+Potential dataset sources include:
+- Credit Card Fraud Detection dataset.
+- PaySim mobile money transaction dataset.
 
----
+Evaluation may consider detection performance, false alerts, risk-score behavior, rule effectiveness, and investigation workload, depending on the availability and quality of labelled data.
 
-## 👥 Team Members & Responsibilities
+## Security & Responsible Use
 
-The project is divided into four modules, with each team member responsible for a specific area.
+BankShield is an academic project and demonstration platform. It is not connected to real banking infrastructure and is not intended to process real customer financial transactions.
 
-| Team Member | Module | Feature Range |
-|---|---|---|
-| Wahid Al Amin | Payments | 1–5 |
-| Nujahir Kamal Yusha | Accounts & Loans | 6–10 |
-| Samiya Khan | Fraud Protection | 11–15 |
-| Tanzim Sajid | Support & Insights | 16–20 |
+The fraud detection component is designed as a decision-support system. Its alerts indicate potentially suspicious activity and require human review before any conclusion is made.
 
----
+## Development Team
 
-## 🎯 Project Objectives
+- **Nujahir Kamal Yusha** — Accounts & Loans
+- **Wahid Al Amin** — Payments
+- **Samiya Khan** — Fraud Protection
+- **Tanzim Sajid** — Support & Insights
 
-- Develop a centralized web-based banking management platform.
-- Simplify customer and account management.
-- Support secure and convenient payment operations.
-- Provide accessible banking and loan-related services.
-- Identify potentially suspicious financial activity through transparent detection rules.
-- Improve alert prioritization and investigation workflows.
-- Provide meaningful financial analytics and administrative insights.
-- Maintain accountability through authentication, authorization, and audit records.
+## Project Information
 
-## 🔐 Security & Responsible Use
-
-BankShield emphasizes secure application development and responsible fraud detection.
-
-The system aims to incorporate:
-
-- Authentication and role-based access control.
-- Input validation and secure data handling.
-- Protected administrative operations.
-- Traceable investigation activities.
-- Configurable detection rules and thresholds.
-- Clear explanations for suspicious-activity alerts.
-
-BankShield is a demonstration and decision-support platform. It does not connect to real banking infrastructure, process real customer transactions, or independently establish that fraud has occurred.
-
-Public datasets and clearly identified synthetic records are intended for development, demonstration, and evaluation.
+**Institution:** BRAC University  
+**Department:** Computer Science and Engineering (CSE)  
+**Project Name:** BankShield
 
 ---
 
-## 📊 Expected Outcome
-
-The expected outcome is an integrated banking management and fraud protection application that combines everyday banking services with transparent transaction monitoring and investigation capabilities.
-
-BankShield aims to demonstrate how banking operations, explainable fraud detection, structured investigations, and financial insights can be brought together in a single web-based platform.
-
----
-
-## 🎓 Project Information
-
-- **Project Name:** BankShield
-- **Project Type:** Academic Group Project
-- **Department:** Computer Science and Engineering
-- **University:** BRAC University
-
----
-
-*Developed for academic purposes.*
+*BankShield aims to combine essential banking services with transparent and explainable fraud monitoring to support safer and more accountable banking operations.*
