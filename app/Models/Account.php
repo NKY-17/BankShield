@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\FixedDeposit;
 
 class Account extends Model
 {
@@ -21,4 +23,8 @@ class Account extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+    public function fixedDeposits(): HasMany
+{
+    return $this->hasMany(FixedDeposit::class);
+}
 }

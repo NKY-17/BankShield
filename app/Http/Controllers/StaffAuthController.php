@@ -7,34 +7,43 @@ use Illuminate\Support\Facades\Auth;
 
 class StaffAuthController extends Controller
 {
-    // Display staff login page
+    // Display the central login page
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    // Process staff login
+    // Process Admin, Staff, and Customer login
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'role' => 'required|in:admin,staff,customer',
         ]);
 
-        $credentials['is_staff'] = true;
+        $credentials = [
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+            'role' => $validated['role'],
+        ];
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('customers.index'));
+            if (in_array(Auth::user()->role, ['admin', 'staff'])) {
+                return redirect()->intended(route('customers.index'));
+            }
+
+            return redirect()->intended(route('fixed-deposits.index'));
         }
 
         return back()->withErrors([
-            'email' => 'Invalid staff credentials.',
-        ])->onlyInput('email');
+            'email' => 'Invalid email, password, or account type.',
+        ])->onlyInput('email', 'role');
     }
 
-    // Staff logout
+    // Logout
     public function logout(Request $request)
     {
         Auth::logout();

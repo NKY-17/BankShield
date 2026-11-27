@@ -5,8 +5,9 @@ use App\Http\Controllers\SavedReceiverController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\StaffAuthController;
+use App\Http\Controllers\FixedDepositController;
 
-// Staff Login and Logout
+// Central Login and Logout
 Route::get('/staff/login', [StaffAuthController::class, 'showLogin'])
     ->name('login');
 
@@ -21,7 +22,7 @@ Route::resource('saved-receivers', SavedReceiverController::class)
     ->except(['show']);
 
 // Customer and Account Management
-// Only authorized staff can access these routes
+// Admin and Staff access
 Route::middleware('staff')->group(function () {
 
     // Customer Routes
@@ -61,4 +62,18 @@ Route::middleware('staff')->group(function () {
 
     Route::patch('/accounts/{account}/close', [AccountController::class, 'close'])
         ->name('accounts.close');
+});
+
+// Fixed Deposit Routes
+// Customers can access only their own deposits
+Route::middleware('customer')->group(function () {
+
+    Route::get('/fixed-deposits', [FixedDepositController::class, 'index'])
+        ->name('fixed-deposits.index');
+
+    Route::get('/fixed-deposits/create', [FixedDepositController::class, 'create'])
+        ->name('fixed-deposits.create');
+
+    Route::post('/fixed-deposits', [FixedDepositController::class, 'store'])
+        ->name('fixed-deposits.store');
 });

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Login | BankShield</title>
+    <title>Login | BankShield</title>
 
     <style>
         * {
@@ -88,7 +88,7 @@
             margin-bottom: 9px;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 13px 14px;
             border: 1px solid #cbd5e1;
@@ -96,9 +96,10 @@
             font-size: 14px;
             outline: none;
             transition: 0.2s;
+            background: white;
         }
 
-        input:focus {
+        input:focus, select:focus {
             border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
@@ -181,7 +182,7 @@
 
         <div class="welcome">
             <h2>Welcome Back</h2>
-            <p>Sign in to access your staff dashboard.</p>
+            <p>Sign in to access your BankShield account.</p>
         </div>
 
         @if ($errors->any())
@@ -194,7 +195,17 @@
             @csrf
 
             <div class="form-group">
-                <label for="email">Staff Email</label>
+                <label for="role">Account Type</label>
+                <select id="role" name="role" required>
+                    <option value="">Select your account type</option>
+                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                    <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
+                    <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Customer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
                 <input
                     type="email"
                     id="email"

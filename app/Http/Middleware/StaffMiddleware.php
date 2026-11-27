@@ -14,8 +14,8 @@ class StaffMiddleware
             return redirect()->route('login');
         }
 
-        if (!auth()->user()->is_staff) {
-            abort(403, 'Access denied. Staff members only.');
+        if (!in_array(auth()->user()->role, ['admin', 'staff'])) {
+            abort(403, 'Access denied. Admin or staff members only.');
         }
 
         return $next($request);

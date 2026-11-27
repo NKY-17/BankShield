@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +24,12 @@
         h1 {
             color: #1e3a8a;
             margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #1e3a8a;
+            font-size: 18px;
+            margin-top: 30px;
         }
 
         .form-group {
@@ -73,6 +78,15 @@
             color: #1e40af;
             text-decoration: none;
         }
+
+        .info {
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
@@ -85,6 +99,10 @@
     </a>
 
     <h1>Register New Customer</h1>
+
+    <div class="info">
+        A BankShield customer login account will also be created.
+    </div>
 
     @if ($errors->any())
         <div class="error">
@@ -99,29 +117,36 @@
     <form action="{{ route('customers.store') }}" method="POST">
         @csrf
 
+        <h2>Personal Information</h2>
+
         <div class="form-group">
             <label>First Name *</label>
-            <input type="text" name="first_name" value="{{ old('first_name') }}" required>
+            <input type="text" name="first_name"
+                   value="{{ old('first_name') }}" required>
         </div>
 
         <div class="form-group">
             <label>Last Name *</label>
-            <input type="text" name="last_name" value="{{ old('last_name') }}" required>
+            <input type="text" name="last_name"
+                   value="{{ old('last_name') }}" required>
         </div>
 
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" value="{{ old('email') }}">
+            <label>Email Address *</label>
+            <input type="email" name="email"
+                   value="{{ old('email') }}" required>
         </div>
 
         <div class="form-group">
             <label>Phone Number *</label>
-            <input type="text" name="phone" value="{{ old('phone') }}" required>
+            <input type="text" name="phone"
+                   value="{{ old('phone') }}" required>
         </div>
 
         <div class="form-group">
             <label>Date of Birth</label>
-            <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}">
+            <input type="date" name="date_of_birth"
+                   value="{{ old('date_of_birth') }}">
         </div>
 
         <div class="form-group">
@@ -146,7 +171,22 @@
 
         <div class="form-group">
             <label>Occupation</label>
-            <input type="text" name="occupation" value="{{ old('occupation') }}">
+            <input type="text" name="occupation"
+                   value="{{ old('occupation') }}">
+        </div>
+
+        <h2>Customer Login Credentials</h2>
+
+        <div class="form-group">
+            <label>Temporary Password *</label>
+            <input type="password" name="password"
+                   minlength="8" required>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password *</label>
+            <input type="password" name="password_confirmation"
+                   minlength="8" required>
         </div>
 
         <button type="submit">Register Customer</button>

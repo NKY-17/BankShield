@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -23,13 +26,14 @@ class CustomerController extends Controller
         return view('customers.create');
     }
 
-    // Store a new customer
+    // Store a new customer and login account
     public function store(Request $request)
     {
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'nullable|email|unique:customers,email',
+            'email' => 'required|email|unique:users,email|unique:customers,email',
+            'password' => 'required|string|min:8|confirmed',
             'phone' => 'required|string|max:30',
             'date_of_birth' => 'nullable|date',
             'gender' => 'nullable|string|max:30',
@@ -38,13 +42,36 @@ class CustomerController extends Controller
             'occupation' => 'nullable|string|max:100',
         ]);
 
-        $validated['customer_number'] = 'CUS' . strtoupper(uniqid());
+        DB::transaction(function () use ($validated) {
 
-        Customer::create($validated);
+            // Create customer login account
+            $user = User::create([
+                'name' => $validated['first_name'] . ' ' . $validated['last_name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role' => 'customer',
+            ]);
+
+            // Create customer profile
+            Customer::create([
+                'customer_number' => 'CUS' . strtoupper(uniqid()),
+                'user_id' => $user->id,
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'date_of_birth' => $validated['date_of_birth'] ?? null,
+                'gender' => $validated['gender'] ?? null,
+                'address' => $validated['address'] ?? null,
+                'city' => $validated['city'] ?? null,
+                'occupation' => $validated['occupation'] ?? null,
+                'created_by' => auth()->id(),
+            ]);
+        });
 
         return redirect()
             ->route('customers.index')
-            ->with('success', 'Customer registered successfully.');
+            ->with('success', 'Customer registered successfully. Login account created.');
     }
 
     // Show customer edit form
