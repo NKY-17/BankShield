@@ -32,7 +32,25 @@ class User extends Authenticatable
         ];
     }
 
-    // Relationship with SavedReceiver
+    // Conversations started by this customer
+    public function customerConversations(): HasMany
+    {
+        return $this->hasMany(Conversation::class, 'customer_id');
+    }
+
+    // Conversations assigned to this support agent
+    public function assignedConversations(): HasMany
+    {
+        return $this->hasMany(Conversation::class, 'agent_id');
+    }
+
+    // Messages sent by this user
+    public function sentMessages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    // Saved bank receivers
     public function savedReceivers(): HasMany
     {
         return $this->hasMany(SavedReceiver::class);
@@ -42,5 +60,11 @@ class User extends Authenticatable
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    // Fraud cases assigned to this staff member
+    public function assignedFraudCases(): HasMany
+    {
+        return $this->hasMany(FraudCase::class, 'assigned_to');
     }
 }
